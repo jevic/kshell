@@ -1,0 +1,23 @@
+{
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "O": "etcd",
+      "OU": "etcd Security",
+      "L": "Shengzhen",
+      "ST": "Shengzhen",
+      "C": "CN"
+    }
+  ],
+  "CN": "etcd",
+  "hosts": [
+    "127.0.0.1",
+    "localhost",
+    "192.168.2.219",
+    "192.168.2.220",
+    "192.168.2.221"
+  ]
+}
