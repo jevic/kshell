@@ -3,10 +3,21 @@ set -e
 
 
 init(){
+
+setenforce 0
+sed -i 's/SELINUX=enforcing/SELINUX=disalbe/g' /etc/sysconfig/selinux
+
+cat >> /etc/security/limits.conf <<EOF
+* soft nofile 65536
+* hard nofile 65536
+* soft nproc unlimited
+* hard nproc unlimited
+EOF
+
+swapoff -a
+
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-
 yum makecache fast
-
 yum install -y epel-release
 yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp ntpdate
 
