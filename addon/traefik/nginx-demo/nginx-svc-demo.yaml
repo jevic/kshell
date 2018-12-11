@@ -15,4 +15,4 @@ spec:
     targetPort: 443
     name: https
   selector:
-    app: nginx-demo
+    nginx: nginx-demo
