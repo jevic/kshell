@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: default
+data:
+  nginx_port: "80"
+  server_name: myapp.jevic.cn
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-cm
+  labels:
+    app: myapp-cm
+spec:
+  containers:
+  - name: myapp-cm
+    image: jevic/app:v1
+    ports:
+    - name: http
+      containerPort: 80
+    env:
+    - name: NGINX_SERVER_PORT
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-config
+          key: nginx_port
+    - name: NGINX_SERVER_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-config
+          key: server_name
