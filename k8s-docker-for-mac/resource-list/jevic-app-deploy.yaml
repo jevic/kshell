@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jevic-app-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jevic-app
+  template:
+    metadata:
+      labels:
+        app: jevic-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+             - matchExpressions:
+               - key: myapp
+                 operator: In
+                 values:
+                 - jevic-app
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: NotIn
+                    values:
+                    - jevic-app
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: jevic-app
+          image: jevic/app:v1
+          ports:
+            - name: http
+              containerPort: 80
