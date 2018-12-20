@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: logstash-dttest
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        logstash: dttest
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - logstash
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: logstash
+                  operator: NotIn
+                  values:
+                  - dttest
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: logstash-dttest
+        image: k8s.yfcloud.com/demo/logstast:latest
+        args:
+        - "/opt/logstash/bin/logstash"
+        - "-f"
+        - "/opt/logstash/etc/logstash.conf"

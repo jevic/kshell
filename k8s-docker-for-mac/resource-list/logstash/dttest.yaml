@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: logstash-dttest
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        logstash: dttest
+    spec:
+      containers:
+      - name: logstash-dttest
+        image: k8s.yfcloud.com/demo/logstast:latest
+        args:
+        - "/opt/logstash/bin/logstash"
+        - "-f"
+        - "/opt/logstash/etc/logstash.conf"
+      nodeSelector:
+        app: logstash
