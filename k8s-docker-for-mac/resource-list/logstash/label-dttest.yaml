@@ -31,7 +31,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: logstash-dttest
-        image: k8s.yfcloud.com/demo/logstast:latest
+        image: k8s.jevic.cn/demo/logstast:latest
         args:
         - "/opt/logstash/bin/logstash"
         - "-f"
