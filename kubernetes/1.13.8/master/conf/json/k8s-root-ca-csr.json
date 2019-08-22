@@ -1,0 +1,19 @@
+{
+    "CN": "kubernetes",
+    "key": {
+        "algo": "rsa",
+        "size": 4096
+    },
+    "names": [
+        {
+            "C": "CN",
+            "ST": "Shengzhen",
+            "L": "Shengzhen",
+            "O": "kubernetes",
+            "OU": "System"
+        }
+    ],
+    "ca": {
+        "expiry": "175200h"
+    }
+}
