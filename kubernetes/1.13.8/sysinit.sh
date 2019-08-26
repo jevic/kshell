@@ -78,10 +78,13 @@ yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/d
 yum -y install docker-ce
 systemctl start docker
 systemctl stop docker
+}
 
+registry_init(){
 cat > /etc/docker/daemon.json <<EOF
 {
-  "registry-mirrors": ["https://dlvqhrac.mirror.aliyuncs.com"]
+  "registry-mirrors": ["https://dlvqhrac.mirror.aliyuncs.com"],
+  "insecure-registries": ["registry-k8s.novalocal"]
 }
 EOF
 }
@@ -112,5 +115,7 @@ kernel
 ipvs
 ## 安装docker
 docker
+## 配置加速器和私有仓库
+registry_init
 ## 配置历史命令记录
 init_history
