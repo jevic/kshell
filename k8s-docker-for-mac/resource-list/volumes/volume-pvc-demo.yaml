@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: pod-nfs-pvc
-    image: jevic/app:v1
+    image: jevic/app:v3
     volumeMounts:
     - name: html
       mountPath: /usr/share/nginx/html/
